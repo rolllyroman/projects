@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block head %}
+<!--二维码-->
+<!--<script type="text/javascript" src="/static/js/jquery.qrcode.min.js"></script>-->
+<script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+{% end %}
+
+{% block body %}
+<body class="ja-top-nav-body ja-bot-logo-body">
+
+<nav class="navbar navbar-default navbar-fixed-top ja-nav-top">
+    <div class="container-fluid ja-middle text-center">
+        <img class="ja-btn-back" src="/static/images/form/icon-white-back.png" alt="返回" style=""  onclick="window.history.back()">
+        <span class="ja-h4">二维码</span>
+    </div>
+</nav>
+
+<section class="container">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="panel panel-default ja-panel ja-shadow-container">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <span class="ja-h4">尊敬的</span>
+                                <span class="ja-h4 ja-text-warn">{{nickname}}</span>
+                            </div>
+                            <div class="col-xs-12 text-center">
+                                <span class="ja-h4">ID:</span>
+                                <span class="ja-h4 ">{{uid}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <img class="img-responsive ja-shadow-container ja-radius-sm ja-panel" src="/static/images/extend/ac_new_mode.png" alt="茶楼新模式" id="imgQRBG">
+                <div id="code" class="ja-qrcode hide"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="">
+                    <span class="ja-h3 ja-text-info">长按</span>
+                    <span class="ja-h4 ja-text-white">&nbsp;"推广专码"</span>
+                </p>
+                <p class="">
+                    <span class="ja-h3 ja-text-yellow">保存-分享</span>
+                    <span class="ja-h4 ja-text-white">&nbsp;"帮您快速发展新用户"</span>
+                </p>
+            </div>
+        </div>
+</section>
+
+
+<script>
+    var insertQRCode = function($code){
+        var bg = $('#imgQRBG').get(0);
+
+        var imgOrigin = document.createElement('img');
+        imgOrigin.src =  bg.src;
+        var inited = false;
+        imgOrigin.onload= function(){
+            if(inited)return;
+            inited = true;
+
+            //获取原始图片大小
+            var orwidth = imgOrigin.width;
+            var orheight = imgOrigin.height;
+
+            //新建canvas
+            var canvas = document.createElement('canvas');
+            canvas.width = orwidth;
+            canvas.height = orheight;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(bg,0,0, canvas.width, canvas.height);
+
+            //获取二维码图片数据并插入
+            var codeCanvas = $code.find('canvas').get(0);
+            var codeData = codeCanvas.getContext("2d").getImageData(0,0, codeCanvas.width, codeCanvas.height);
+
+            //获取最终数据
+            ctx.putImageData(codeData, 0.044 * orwidth, 0.078 * orheight);
+            var base64 = canvas.toDataURL();
+            bg.src = base64;
+        }
+
+    };
+    var showQRCode = function(){
+        var code = $('#code');
+        code.qrcode({width: 344, height: 344, text:"{{qr_url}}"});
+        setTimeout(function(){
+            insertQRCode(code)
+        },0);
+    };
+    $(document).ready(function(){
+        showQRCode();
+    })
+</script>
+</body>
+{% end %}

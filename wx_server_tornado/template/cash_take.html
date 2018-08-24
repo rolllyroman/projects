@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% end %}
+
+{% block body %}
+<body class="ja-top-nav-body ja-bot-logo-body">
+
+<nav class="navbar navbar-default navbar-fixed-top ja-nav-top">
+    <div class="container-fluid ja-middle text-center">
+        <img class="ja-btn-back" src="/static/images/form/icon-white-back.png" alt="返回" style=""  onclick="window.history.back()">
+        <span class="ja-h4">我要提现</span>
+    </div>
+</nav>
+
+<section class="container">
+
+    <div class="row">
+        <div class="col-xs-12 ">
+            <div class="panel panel-default ja-panel ja-shadow-container">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 text-center">
+                            <p class="ja-h4">可提现金额</p>
+                            <p class="ja-h4 ja-text-danger">{{c_take}}</p>
+                        </div>
+                        <div class="col-xs-6 text-center ja-split ja-split-gary">
+                            <div class="center-block">
+                                <p class="ja-h4">累计提现</p>
+                                <p class="ja-h4 ">{{a_take}}</p>
+                                <p>
+                                    <a class="btn btn-sm btn-block ja-btn-info" href="/my/withdraw">
+                                        提现明细
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 ">
+            <div class="panel panel-default ja-panel ja-shadow-container">
+                <div class="panel-body">
+                    <form action="/cash/take" class="form-horizontal" method="POST" id="chargeFrom"  onsubmit="return false;">
+                        {% module xsrf_form_html() %}
+                        <div class="from-group ja-pd-b-10">
+                            <input type="number" name="money" class="form-control input-lg text-center" placeholder="请输入金额，最少1元">
+                        </div>
+                        <button type="button" class="btn btn-block btn-lg ja-btn-info" onclick="submitTable()">
+                            提现
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 ">
+            <div class="panel panel-default ja-panel ja-shadow-container">
+                <div class="panel-body ja-text-gery ja-color-white ja-pd-r-5 ja-pd-l-5" >
+                     <!--提现指引：<br>
+                    &nbsp;&nbsp;1. 每周四、周五开放提现。<br>
+                    &nbsp;&nbsp;2. 单笔提现，至少1元。<br>
+                    &nbsp;&nbsp;3. 单日最多提现5次，单日提现累积限额5000元。<br>
+                    &nbsp;&nbsp;4. 提现成功后，金额将直接转入你的微信余额。-->
+                    提现指引：<br>
+                    &nbsp;&nbsp;1. 提现不限时间，秒到账。<br>
+                    &nbsp;&nbsp;2. 单笔提现，至少1元。<br>
+                    &nbsp;&nbsp;3. 单日最多提现3次，单日提现累积限额5000元。<br>
+                    &nbsp;&nbsp;4. 提现成功后，金额将直接转入你的微信余额。
+                 </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+</section>
+
+<script>
+    //提交表单
+    var submitTable = function(){
+        var form = $('#chargeFrom');
+        var money  =  $("[name='money']").val();
+        if(money === '' || money == null){
+          return alert('请输入金额');
+        }
+        var net = ja.net({
+            showProgress: true, //是否显示顶部进度条
+            url:form.attr('action'),
+            method: form.attr('method')||'post',
+            data: form.serialize(),
+        })
+    };
+
+    if("{{wr}}"=="1"){
+       alert('提现成功！')
+    }
+
+</script>
+
+</body>
+{% end %}

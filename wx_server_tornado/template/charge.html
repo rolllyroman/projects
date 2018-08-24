@@ -1,0 +1,360 @@
+
+{% extends "base.html" %}
+
+{% block head %}
+{% end %}
+
+{% block body %}
+
+<body class=" ja-bot-logo-body">
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 ja-pd-lr-rm" style="height: 140px;">
+            <!--<img class="ja-btn-back ja-left-top" src="/static/images/form/icon-white-back.png" alt="返回" style=""  onclick="window.history.back()">-->
+            <img class="ja-width-full" src="/static/images/top_bg.png" alt="茶楼麻将">
+            <!--<img class="ja-absolute-center ja-logo-recharge" src="/static/images/logo.png" alt="雀康茶楼" >-->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 ja-pd-lr-rm">
+            <div class="btn btn-block ja-btn-clean ja-gradient-purple-blue ">
+                <h3 class="ja-h3 ja-text-white ja-mg-tb-10">
+                    代理充值
+                </h3>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="container-fluid">
+    <form action="" method="POST" onsubmit="return false" id="chargeFrom">
+        {% module xsrf_form_html() %}
+        <div class="row">
+            <div class="col-xs-12 panel panel-default  ja-mg-b-5 ja-radius-rm">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <!--<label class="col-xs-4">-->
+                                    <!--ID：-->
+                                <!--</label>-->
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" placeholder="玩家ID" value="{{uid}}" name="charge_uid" >
+                                </div>
+                                <label class="col-xs-4">
+                                    <button type="button" class="btn btn-warning ja-btn-warn" onclick="doCheckUser()">显示昵称</button>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <span for="" class="col-xs-4">
+                                    <h4 class="ja-h4 y-jah4">
+                                        玩家昵称 :
+                                    </h4>
+                                </span>
+                                <span class="col-xs-8 ja-text-warn ">
+                                    <h4 class="ja-h4" id="nickname">
+                                        {{nickname}}
+                                        <!--img:{{headImgUrl}}-->
+                                    </h4>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="y-taocanimg1 col-xs-3 y-taocanimg-bottom jb-radio" >
+                            <input type="radio" class="hide" name="goods_id" value="10">
+                            <img src="/static/images/placeholder/shop_bg_normal.png"  class="y-taocanimg-bg"/>
+                            <img src="/static/images/icon/icon_roomcard_0.png" class="y-taocanimg11" />
+                            <div class="y-taocan-tag">
+                                <img src="/static/images/icon/icon_shop_redtag.png"  />
+                                <span>300元</span>
+                            </div>
+                            <div class="ja-bottom ">
+                                <p class="text-center ja-width-full ja-lh-vw-sm ja-text-vw-sm ja-mg-tb-5">
+                                    <span class="ja-shop-bottom-text">1500房卡</span><br>
+                                    <span class="ja-text-white">&emsp;</span>
+                                </p>
+                            </div>
+                        </label>
+                        <label class="y-taocanimg1 col-xs-3 y-taocanimg-bottom jb-radio" >
+                            <input type="radio" class="hide" name="goods_id" value="11">
+                            <img src="/static/images/placeholder/shop_bg_normal.png"  class=" y-taocanimg-bg"  />
+                            <img src="/static/images/icon/icon_roomcard_1.png" class="y-taocanimg11" />
+                            <div class="y-taocan-tag">
+                                <img src="/static/images/icon/icon_shop_redtag.png"  />
+                                <span>600元</span>
+                            </div>
+                            <div class="ja-bottom ja-shop-bottom-shadow">
+                                <p class="text-center ja-width-full ja-lh-vw-sm ja-text-vw-sm ja-mg-tb-5">
+                                    <span class="ja-shop-bottom-text">3000房卡</span><br>
+                                    <span class="ja-text-white">赠送600房卡</span>
+                                </p>
+                            </div>
+                        </label>
+                        <label class="y-taocanimg1 col-xs-3 y-taocanimg-bottom jb-radio" >
+                            <input type="radio" class="hide" name="goods_id" value="12">
+                            <img src="/static/images/placeholder/shop_bg_normal.png"  class="y-taocanimg-bg"  />
+                            <img src="/static/images/icon/icon_roomcard_2.png" class="y-taocanimg11" />
+                            <div class="y-taocan-tag">
+                                <img src="/static/images/icon/icon_shop_redtag.png"  />
+                                <span>1200元</span>
+                            </div>
+                            <div class="ja-bottom ja-shop-bottom-shadow">
+                                <p class="text-center ja-width-full ja-lh-vw-sm ja-text-vw-sm ja-mg-tb-5">
+                                    <span class="ja-shop-bottom-text">6000房卡</span><br>
+                                    <span class="ja-text-white">赠送3000房卡</span>
+                                </p>
+                            </div>
+                        </label>
+                        <label class="y-taocanimg1 col-xs-3 y-taocanimg-bottom jb-radio" >
+                            <input type="radio" class="hide" name="goods_id" value="13">
+                            <img src="/static/images/placeholder/shop_bg_normal.png"  class=" y-taocanimg-bg" />
+                            <img src="/static/images/icon/icon_roomcard_3.png" class="y-taocanimg11" />
+                            <div class="y-taocan-tag">
+                                <img src="/static/images/icon/icon_shop_redtag.png"  />
+                                <span>2400元</span>
+                            </div>
+                            <div class="ja-bottom ja-shop-bottom-shadow">
+                                <p class="text-center ja-width-full ja-lh-vw-sm ja-text-vw-sm ja-mg-tb-5">
+                                    <span class="ja-shop-bottom-text">12000房卡</span><br>
+                                    <span class="ja-text-white">赠送12000房卡</span>
+                                </p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                    <h5 class="ja-h5">
+                                        <span class="col-xs-12  ja-text-gery ja-pd-l-5 ja-pa-r-5">
+                                            1. 首次公众号充值成功后，即自动成为代理。<br>
+                                            2. 若需要线下转账，请联系微信客服。
+                                        </span>
+                                        <!--<span class="col-xs-12 ja-text-danger">
+                                            注：
+                                        </span>-->
+                                    </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="conInviteCode">
+            <div class="col-xs-12 panel panel-default ja-radius-rm">
+                <div class="panel-body ja-mg-b-10">
+                    <div class="form-group">
+                        <label class="col-xs-12 text-center">
+                        </label>
+                        <input type="text" class="form-control" name="invite_code" value="{{agent1st}}" placeholder="推荐人邀请码">
+                        <p class="help-block">注：填写渠道ID和普通玩家ID无效</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-default navbar-fixed-bottom ja-p-rm">
+            <!--<button type="button" class="btn btn-primary col-xs-3 ja-btn-lg ja-btn-clean ja-btn-info"-->
+                    <!--onclick="fun_not_open()">-->
+                <!--<h4 class="ja-h4">-->
+                    <!--充值记录-->
+                <!--</h4>-->
+            <!--</button>-->
+            <button type="button" class="btn btn-primary col-xs-12 ja-btn-lg ja-btn-clean ja-btn-success" onclick="submitTable()">
+                <h4 class="ja-h4">
+                    确认充值
+                </h4>
+            </button>
+        </nav>
+    </form>
+</section>
+
+<script>
+
+    //提交表单
+    var submitTable = function(){
+        var form = $('#chargeFrom');
+        var charge_uid  =  $("[name='charge_uid']").val();
+        if(charge_uid === '' || charge_uid == null){
+          return alert('请输入用户ID');
+        }
+        var net = ja.net({
+            showProgress: true, //是否显示顶部进度条
+            url:form.attr('action'),
+            method: form.attr('method')||'post',
+            data: form.serialize(),
+            success: function(success, res){
+                if(success){
+                    doWXPay(res['data']);
+                }else{
+                    net.checkCode(res);
+                }
+            },
+        })
+    };
+
+    //检查用户名
+    var doCheckUser = function(){
+        var uid = $("[name='charge_uid']").val();
+        var nickname = $('#nickname');
+
+        var send = function(callback){
+            var url = '/nickname';
+            var data = {uid: uid};
+            var net = ja.net({
+                showProgress: true, //是否显示顶部进度条
+                url: url,
+                method: 'post',
+                data: data,
+                success: function (success, res) {
+                    callback(res);
+                }
+            })
+        };
+
+        var write = function (str) {
+            nickname.text(str||'玩家不存在');
+        };
+
+        if(uid == null || uid == ""){
+            write();
+        }else{
+            send(function(res){
+                write(res['data']);
+            })
+        }
+    };
+
+    //初始化单选框
+    var initRadio = function(){
+        var list = $('.jb-radio');
+        var classList = 'ja-shop-actived';
+        var classNormal = 'ja-shop-normal';
+//        var imgList = {
+//            actived: '/static/images/placeholder/shop_bg_selected.png',
+//            normal: '/static/images/placeholder/shop_bg_normal.png'
+//        };
+
+        var tag = null;
+        var tagInstance = function(){
+            if(!tag){
+                tag = document.createElement('img');
+                tag.src = "/static/images/icon/icon-bingo.png";
+                tag.className = 'ja-icon-sm';
+                tag.style.position = 'absolute';
+                tag.style.right = '0px';
+                tag.style.top = '-5px';
+                tag.style.width = '30%';
+            }
+            return tag
+        };
+
+        var active = function(item){
+            var $item = $(item);
+            $item.find('.y-taocanimg-bg').addClass(classList);
+            $item.find('.y-taocanimg-bg').removeClass(classNormal);
+            $item.append(tagInstance());
+//            $item.find('.y-taocanimg-bg').attr('src', imgList['actived'])
+        };
+        var clear = function(){
+            list.find('.y-taocanimg-bg').removeClass(classList);
+            list.find('.y-taocanimg-bg').addClass(classNormal);
+//            list.find('.y-taocanimg-bg').attr('src', imgList['normal'])
+        };
+        var toggle= function(event){
+            clear();
+            var label = event.currentTarget;
+            active(label);
+        };
+        var selectFirst = function(){
+            setTimeout(function(){
+                list.first().click();
+            },0)
+        };
+
+        list.on('click', toggle);
+        selectFirst();
+
+    };
+    $(document).ready(function(){
+        initRadio()
+    });
+
+    //检查用户是否同一人
+    var initCheckUserInfo = function(){
+        var input = $("[name='charge_uid']");
+        var con = $('#conInviteCode');
+        var tf = $("[name='invite_code']");
+
+        var checkUserInfo = function(){
+            var isPass = input.val() == '{{uid}}';
+            $.get("/check/player?uid={{uid}}", function(result){
+                if(isPass && result == '1'){
+                    con.show();
+                }else{
+                    con.hide();
+                    tf.val('');
+                }
+            });
+        };
+        checkUserInfo()
+        input.on('input change', checkUserInfo);
+    };
+
+    //微信支付
+    function onBridgeReady(data){
+        var option = {
+               "appId":data['appId'],     //公众号名称，由商户传入
+               "nonceStr":data['nonceStr'], //随机串
+               "package":data['package'],
+               "signType":data['signType'],         //微信签名方式：
+               "paySign":data['paySign'], //微信签名
+               "timeStamp":data['timeStamp'], //时间戳，自1970年以来的秒数
+           };
+        WeixinJSBridge.invoke(
+           'getBrandWCPayRequest', option,
+           function(res){
+
+               //if(res.err_msg == "get_brand_wcpay_request:ok" ) {}     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+               var msg ="";
+                for(var name in res){
+                    msg += name+": "+ res[name]+"\r\n ";
+                }
+               if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                   alert('充值成功！');
+               }else{
+                   alert('充值失败！');
+               }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                window.location.reload();
+           });
+    }
+    var doWXPay = function (data) {
+        if (typeof WeixinJSBridge == "undefined"){
+           if( document.addEventListener ){
+               document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+           }else if (document.attachEvent){
+               document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+               document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+           }
+        }else{
+           onBridgeReady(data);
+        }
+    };
+    $(document).ready(function(){
+        initRadio();
+        initCheckUserInfo();
+    });
+</script>
+
+</body>
+{% end %}

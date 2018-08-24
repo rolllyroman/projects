@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block head %}{% end %}
+
+{% block body %}
+<body class="ja-bot-logo-body">
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <img class="ja-logo-notice ja-mg-tb-10" src="/static/images/logo-single.png" alt="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 ja-pd-tb-5">
+            <div class="col-xs-4 col-xs-offset-1 ">
+                <span class="ja-head-mb pull-right">
+                    <img src="{{headImgUrl}}" alt="" class="img-responsive">
+                </span>
+            </div>
+            <div class="col-xs-6 ">
+                <p class="ja-text-block-mb ja-color-aux-1">
+                    <img src="/static/images/icon/icon-color-diamond.png" alt="" class="ja-icon-sm">
+                    <span class="ja-text-white ja-h5">{{nickname}}</span>
+                </p>
+                <p class="ja-text-block-mb ja-color-aux-1">
+                    <img src="/static/images/icon/icon-white-id.png" alt="" class="ja-icon-sm">
+                    <span class="ja-text-white  ja-h5">{{uid}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row ja-mg-b-5">
+        <div class="col-xs-6 ja-pd-lr-rm">
+            <div href="#" class="center-block  ja-pd-tb-5 ja-pd-lr-10 text-center ja-width-full ja-btn-clean ja-color-aux-2">
+                <h5 class="ja-h5 ja-mg-tb-5">代理资格</h5>
+                <h4 class="ja-h4 ja-mg-tb-5">{{agent_rank}}</h4>
+            </div>
+        </div>
+        <div class="col-xs-6 ja-pd-lr-rm ja-split ja-split-purple">
+            <div href="#" class="center-block ja-pd-tb-5 ja-pd-lr-10 text-center ja-width-full ja-btn-clean ja-color-aux-2">
+                <h5 class="ja-h5 ja-mg-tb-5">我的收益</h5>
+                <h4 class="ja-h4 ja-mg-tb-5">{{my_earning}}</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 panel panel-default ja-radius-rm ja-mg-b-5">
+            <div class="panel-body ja-pd-tb-5">
+                <div class="row">
+                    <a class="col-xs-4 text-center ja-pd-tb-5" href="/my/charge">
+                        <img class="ja-icon-md" src="/static/images/icon/icon-color-money.png" alt="">
+                        <div class="caption">
+                            <h4 class="ja-h5">我的提成</h4>
+                        </div>
+                    </a>
+                    <a class="col-xs-4 text-center ja-pd-tb-5" href="/cash/take">
+                        <img class="ja-icon-md" src="/static/images/icon/icon-color-get-crash.png" alt="">
+                        <div class="caption">
+                            <h4 class="ja-h5">我要提现</h4>
+                        </div>
+                    </a>
+                    <a class="col-xs-4 text-center ja-pd-tb-5" role="button" onclick="showModalGetCash()">
+                        <img class="ja-icon-md" src="/static/images/icon/icon-color-bird.png" alt="">
+                        <div class="caption">
+                            <h4 class="ja-h5">提成比例说明</h4>
+                        </div>
+                    </a>
+                    <a class="col-xs-4 text-center ja-pd-tb-5" href="/my/player">
+                        <img class="ja-icon-md" src="/static/images/icon/icon-color-group.png" alt="">
+                        <div class="caption">
+                            <h4 class="ja-h5">我的玩家</h4>
+                        </div>
+                    </a>
+                    <a class="col-xs-4 text-center ja-pd-tb-5" href="/qr/code">
+                        <img class="ja-icon-md" src="/static/images/icon/icon-color-QRCord.png" alt="">
+                        <div class="caption">
+                            <h4 class="ja-h5">我的二维码</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 panel panel-default ja-radius-rm ja-mg-b-5">
+            <div class="panel-body ja-pd-tb-5">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p class="ja-title-2">
+                            代理公告
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default ja-color-aux-3 ja-text-white ja-mg-b-10">
+                            <div class="panel-body ja-pd-tb-5 ja-pd-lr-10 ">
+                                <p class="ja-mg-b-5">
+                                    <!--<span>【标题】</span>
+                                    <span>{{title}}</span>
+                                    <br>
+                                    <span>【发布日期】</span>
+                                    <span>{{time}}</span>-->
+                                    <span>
+										1. 提现不限时间，秒到账。<br>
+										2. 建议利用二维码、游戏内链接邀请更多玩家和代理。
+                                    </span>
+                                </p>
+                                <!--<div class="text-justify ja-pd-l-20">
+                                    {% raw content %}
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 text-center ja-h5 ja-text-white">
+            客服热线：15917484848
+        </div>
+    </div>
+</section>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="ja-modal-get-cash">
+        <img class="img-responsive ja-absolute-center " src="/static/images/form/modal-get-cash.png" alt="" style="margin-left: -4%">
+        <div class="ja-absolute-center" style="margin-top: -10%;">
+            <div class="col-xs-8 col-xs-offset-2" >
+                {% if agent_rank == '总代理' %}
+                <p class="row  ja-lh-h3 text-center">
+                    <span class="col-xs-12 ja-h4 ja-text-white ja-pd-lr-5"> 各级代理提成后剩余的</span>
+                    <span class="col-xs-12 ja-h2 ja-text-yellow ja-pd-lr-5">50%</span>
+                </p>
+                {% else %}
+                <p class="row  ja-lh-h3 ">
+                    <span class="col-xs-9 ja-h4 ja-text-white ja-pd-lr-5"> 直属玩家提成</span>
+                    <span class="col-xs-3 ja-h3 ja-text-yellow ja-pd-lr-5">50%</span>
+                </p>
+                <p class="row  ja-lh-h3">
+                    <span class="col-xs-9 ja-h4 ja-text-white ja-pd-lr-5"> 下级代理提成</span>
+                    <span class="col-xs-3 ja-h3 ja-text-yellow ja-pd-lr-5">20%</span>
+                </p>
+                <p class="row  ja-lh-h3">
+                    <span class="col-xs-9 ja-h4 ja-text-white ja-pd-lr-5"> 下下级代理提成</span>
+                    <span class="col-xs-3 ja-h3 ja-text-yellow ja-pd-lr-5">5%</span>
+                </p>
+                {% end %}
+            </div>
+        </div>
+        <img class="ja-absolute-center ja-icon-lg" src="/static/images/form/icon-white-close.png" class="close" style="margin-top: 60%;" data-dismiss="modal" aria-hidden="true">
+    </div>
+</div>
+
+<script>
+    var showModalGetCash = function(){
+        $('#myModal').modal('show')
+    };
+    $(document).ready(function(){
+
+    })
+</script>
+</body>
+{% end %}

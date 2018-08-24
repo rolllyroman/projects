@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block head %}
+<!--表格-->
+<link href="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+{% end %}
+
+{% block body %}
+<body class="ja-top-nav-body ja-bot-logo-body">
+
+<nav class="navbar navbar-default navbar-fixed-top ja-nav-top">
+    <div class="container-fluid ja-middle text-center">
+        <img class="ja-btn-back" src="/static/images/form/icon-white-back.png" alt="返回" style=""  onclick="window.history.back()">
+        <span class="ja-h4">我的玩家</span>
+    </div>
+</nav>
+
+<section class="container">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="panel panel-default ja-panel ja-shadow-container">
+                    <div class="panel-body">
+                        <form action="" method="get" class="form-horizontal" onsubmit="return false;" id="chargeFrom">
+                            <div class="from-group ja-pd-b-10">
+                                <input type="number" name="search_id" class="form-control input-lg text-center" placeholder="请输入玩家ID">
+                            </div>
+                            <button type="button" class="btn btn-block btn-lg ja-btn-info ja-text-white" onclick="submitTable()">
+                                查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class=" panel panel-default ja-shadow-container ja-radius-sm ja-panel">
+                    <div class="panel-body ja-pd-rm ja-table-container" id="jatable-container">
+                        <table data-toggle="table " id="jatable"><thead><th>数据加载中...</th></thead></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 " id="navContainer">
+            </div>
+        </div>
+</section>
+
+<script>
+
+    //提交表单
+    var submitTable = function(){
+        var form = $('#chargeFrom');
+        //获取表单原数据
+        var formData = form.serializeArray();
+
+        //检查表单
+        var checkList = {
+            'search_id': '请输入玩家ID'
+        };
+        var checkEmpty = function(value){
+            return (value === '' || value == null)
+        };
+        var checkNames = Object.keys(checkList);
+        var _i = formData.length;
+        var reverse = formData.reverse();
+        while (_i--){
+            var obj = reverse[_i];
+            var key = obj['name'];
+            var value = obj['value'];
+            if ( checkNames.indexOf(key) !== -1 && checkEmpty(value)){
+                return alert(checkList[key] || '请填写完整表单');
+            }
+        }
+
+        //增加额外数据
+        var otherData = [{name:'isJson', value: 1}];
+        var data = [].concat(otherData, formData).map(function(obj){
+            return obj['name'] + "=" + obj['value'];
+        }).join('&');
+
+        //
+        var net = ja.net({
+            showProgress: true, //是否显示顶部进度条
+            url:form.attr('action'),
+            method: form.attr('method')||'post',
+            data: data,
+            success: function(success, res){
+                if(success){
+                    $('#jatable').bootstrapTable('load', res.data);
+                }else{
+                    net.checkCode(res);
+                }
+            }
+        })
+    };
+
+    //数据
+    var getTableData= function(cb){
+        var data = [
+        {% for row in data %}
+        {
+            id : '{{row["id"]}}',
+            name : '{{row["name"]}}',
+        },
+        {% end %}
+        ]
+        if(cb){cb(data);}
+    };
+
+    var initTable = function(data){
+        //定义列样式
+        var column = jQuery.fn.bootstrapTable.columnDefaults;
+        column.align = 'center';
+//        column.cellStyle= function(value, row, index){
+//            return {css:{'text-align': 'center'}}
+//        };
+
+        //渲染完成后触发
+        var afterCreated= function(){
+            var container = $('#navContainer');
+            var table = $('#jatable-container');
+            var nav = table.find('div.pagination');
+            var pagination = nav.find('ul.pagination');
+            var a = pagination.find('li > a');
+
+            nav.removeClass('pull-left');
+            nav.addClass('center-block ja-mg-rm');
+            pagination.addClass(' ja-mg-tb-rm ja-width-full ja-mg-l-5');
+            a.each(function(idx, item){
+                item.style.textAlign = 'center'
+                item.style.display = 'inline-block';
+                item.style.width= (1 / a.length) * 100 + "%"
+            });
+
+            container.empty();
+            container.append(nav);
+        };
+
+        $('#jatable').bootstrapTable({
+            //定义样式
+            classes: 'table table-no-bordered',
+            align: 'center',
+            showFullscreen: false, //显示全屏按钮
+            showToggle: true, //是否显示切换视图（table/card）按钮。
+            showRefresh: true, //是否显示刷新按钮。
+            paginationDetailHAlign: 'left', //指定 分页详细信息 在水平方向的位置。'left' / 'right'
+            paginationHAlign: 'left',//指定 分页条 在水平方向的位置
+            paginationVAlign: 'bottom',//指定 分页条 在垂直方向的位置
+            //自定义图标
+            icons:{
+                paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+                paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+                refresh: 'glyphicon-refresh icon-refresh',
+                toggle: 'glyphicon-list-alt icon-list-alt',
+                columns: 'glyphicon-th icon-th',
+                detailOpen: 'glyphicon-plus icon-plus',
+                detailClose: 'glyphicon-minus icon-minus',
+                fullscreen: 'glyphicon-fullscreen icon-fullscreen'
+            },
+            //分页栏
+            pagination: true,
+            sidePagination: 'client', //本地进行分页 client/server
+            pageSize: 6,//页面数据条数。
+            //数据过滤
+            undefinedText: "-",
+            //定义列
+            columns: [{
+                field: 'id',
+                title: '玩家ID'
+            }, {
+                field: 'name',
+                title: '玩家名称'
+            }],
+            data: data,
+            //渲染完成后触发
+            onPostBody: afterCreated,
+        });
+    };
+
+    $(document).ready(function(){
+        getTableData(initTable);
+    })
+</script>
+
+
+</body>
+
+{% end %}
