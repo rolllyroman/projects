@@ -4,6 +4,10 @@ var md5 = require('blueimp-md5')
 
 var router = express.Router()
 
+router.get('/admin', function (req, res) {
+  res.send("admin22")
+})
+
 router.get('/', function (req, res) {
   // console.log(req.session.user)
   res.render('index.html', {
