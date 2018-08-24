@@ -2,7 +2,10 @@ var express = require('express')
 var path = require('path')
 var bodyParser = require('body-parser')
 var session = require('express-session')
+
+// 路由列表
 var router = require('./router')
+var admin = require('./routes/admin')
 
 var app = express()
 
@@ -37,6 +40,7 @@ app.use(session({
 
 // 把路由挂载到 app 中
 app.use(router)
+app.use(admin)
 
 // 配置一个处理 404 的中间件
 app.use(function (req, res) {
