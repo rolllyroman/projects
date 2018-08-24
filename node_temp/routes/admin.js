@@ -1,3 +1,5 @@
+var express = require('express')
+
 var admin = express.Router()
 
 router.get('/', function (req, res) {
